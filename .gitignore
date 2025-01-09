@@ -1,0 +1,17 @@
+# Python files
+*.pyc
+__pycache__/
+
+# Virtual environment
+env/
+venv/
+
+# Django database
+db.sqlite3
+
+# VSCode files
+.idea/
+.vscode/
+
+# Logs
+*.log
