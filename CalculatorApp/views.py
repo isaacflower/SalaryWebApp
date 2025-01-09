@@ -80,14 +80,87 @@ def calculator_view(request):
 
             # 5. Build DataFrame
             df_results = build_results_dataframe(pa_results)
+            
+            def italicise(indexes: list):
+                """
+                This function returns a row-wise style for DataFrame rows.
+                Rows with indexes in the `indexes` list will be italicised.
+                
+                :param indexes: List of DataFrame indexes to italicise.
+                :return: A function to be applied with df.style.apply.
+                """
+                def style_row(row):
+                    if row.name in indexes:  # Check if the row's index is in the list
+                        return ['font-style: italic'] * len(row)  # Italicize the entire row
+                    else:
+                        return [''] * len(row)  # No styling for other rows
+                return style_row
+            
+            def make_bold(indexes: list):
+                """
+                This function returns a row-wise style for DataFrame rows.
+                Rows with indexes in the `indexes` list will be made bold.
+                
+                :param indexes: List of DataFrame indexes of rows to make bold.
+                :return: A function to be applied with df.style.apply.
+                """
+                def style_row(row):
+                    if row.name in indexes:  # Check if the row's index is in the list
+                        return ['font-weight: bold'] * len(row)  # Make the entire row bold
+                    else:
+                        return [''] * len(row)  # No styling for other rows
+                return style_row
+            
+            def color_text(indexes: list, color: str):
+                """
+                This function returns a row-wise style for DataFrame rows.
+                Rows with indexes in the `indexes` list will have their text color changed.
 
-            # Convert DataFrame to HTML (for embedding in template)
-            table_html = df_results.to_html(
-                classes="table table-hover",
-                float_format="£{:,.2f}".format,
-                index=False,
-                justify='left'
-            )
+                :param indexes: List of DataFrame indexes to colorize.
+                :param color: The desired text color (e.g., "red", "#ff0000").
+                :return: A function to be applied with df.style.apply.
+                """
+                def style_row(row):
+                    if row.name in indexes:  # Check if the row's index is in the list
+                        return [f'color: {color}'] * len(row)  # Apply the text color to all cells
+                    else:
+                        return [''] * len(row)  # No styling for other rows
+                return style_row
+            
+            def fill_row_color(indexes: list, color: str):
+                """
+                This function returns a row-wise style for DataFrame rows.
+                Rows with indexes in the `indexes` list will have their background color filled.
+
+                :param indexes: List of DataFrame indexes to fill.
+                :param color: The desired background color (e.g., "yellow", "#ffcccb").
+                :return: A function to be applied with df.style.apply.
+                """
+                def style_row(row):
+                    if row.name in indexes:  # Check if the row's index is in the list
+                        return [f'background-color: {color}'] * len(row)  # Apply background color to all cells
+                    else:
+                        return [''] * len(row)  # No styling for other rows
+                return style_row
+
+            # Specify the rows to italicize (by index)
+            indexes_to_italicize = [1, 2, 3, 5, 6, 7, 9, 11]
+            indexes_to_color = [1, 2, 3, 5, 6, 7, 9, 11]
+            indexes_to_make_bold = [0, 4, 8, 10, 12]
+            indexes_to_fill_row_color = [0, 4, 8, 10, 12]
+
+            # Apply the styling
+            styled_df = df_results.style.apply(italicise(indexes_to_italicize), axis=1)
+            styled_df = styled_df.apply(color_text(indexes_to_color, 'grey'), axis=1)
+            styled_df = styled_df.apply(make_bold(indexes_to_make_bold), axis=1)
+            styled_df = styled_df.apply(fill_row_color(indexes_to_fill_row_color, 'lightgrey'), axis=1)
+            styled_df = styled_df.set_table_attributes('class="table table-hover"')
+            styled_df = styled_df.format(lambda x: f"£{x:,.2f}" if isinstance(x, (int, float)) else x)
+            styled_df = styled_df.set_properties(subset=['Annual', 'Monthly', 'Weekly'], **{'text-align': 'left'})
+            styled_df = styled_df.hide(axis="index")
+
+            # Convert to HTML
+            table_html = styled_df.to_html(index=False)
 
             # 6. Build Sankey figure
             sankey_fig = create_sankey_figure(pa_results)
