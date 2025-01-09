@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-d@xwejum3=&u*5-k4g&(s_dw)19o=!d6imv5*_b_#vv%!41v!g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',  # For local development
+    'localhost',  # For local development
+    'salarywebapp.onrender.com',  # Your Render domain
+]
 
 
 # Application definition
