@@ -1,0 +1,185 @@
+{% extends "CalculatorApp/base.html" %}
+{% load static %}
+
+{% block content %}
+  <h2 style="line-height: 2;">Enter Your Detailss</h2>
+
+  <form method="post" class="row">
+    {% csrf_token %}
+
+    <!-- Main Fields Column -->
+    <div class="col-md-2">
+
+      <h4>Main Fields</h4>
+
+      <div class="mb-3">
+        <label>{{ form.gross_salary.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.gross_salary }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.pension_contribution_percentage.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">%</span>
+          {{ form.pension_contribution_percentage }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.salary_sacrifice.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.salary_sacrifice }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.student_loan_plan.label }}</label>
+        <div class="input-group">
+          {{ form.student_loan_plan }}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Monthly Housing Column -->
+    <div class="col-md-2">
+
+      <h4>Monthly Housing</h4>
+
+      <div class="mb-3">
+        <label>{{ form.rent.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.rent }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.council_tax.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.council_tax }}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Monthly Utilities Column -->
+    <div class="col-md-2">
+
+      <h4>Monthly Utilities</h4>
+
+      <div class="mb-3">
+        <label>{{ form.electricity.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.electricity }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.gas.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.gas }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.water.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.water }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.internet.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.internet }}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Monthly Lifestyle Column -->
+    <div class="col-md-2">
+
+      <h4>Monthly Lifestyle</h4>
+
+      <div class="mb-3">
+        <label>{{ form.phone.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.phone }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.subscriptions.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.subscriptions }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.other_monthly.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.other_monthly }}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Weekly Fields Column -->
+    <div class="col-md-2">
+
+      <h4>Weekly Expenses</h4>
+
+      <div class="mb-3">
+        <label>{{ form.groceries.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.groceries }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.eating_out.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.eating_out }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.travel.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.travel }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>{{ form.other_weekly.label }}</label>
+        <div class="input-group">
+          <span class="input-group-text">£</span>
+          {{ form.other_weekly }}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-12 mt-1" style="line-height: 2;">
+      <button type="submit" class="btn btn-primary">Calculate</button>
+    </div>
+  </form>
+
+{% endblock %}
