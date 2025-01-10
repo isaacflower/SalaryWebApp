@@ -7,3 +7,5 @@ Code for the User and Calculator classes can be found in `CalculatorApp/calculat
 Instances of these classes are created in `CalculatorApp/views.py` and fed user inputs, the results of which are visualised in a table and Sankey diagram (Plotly).
 
 The app is currently hosted at: https://salarywebapp.onrender.com/ 
+
+Data from user inputs is not stored anywhere.
